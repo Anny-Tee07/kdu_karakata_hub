@@ -4,8 +4,12 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+
+  base: "/kdu_karakata_hub/",
+
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+
 })
