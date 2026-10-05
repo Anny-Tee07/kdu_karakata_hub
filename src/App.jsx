@@ -19,7 +19,7 @@ function App() {
 
       <Route
         path="/vendor-hub"
-        element={<VendosrHub />}
+        element={<VendorsHub />}
       />
 
       <Route
