@@ -408,6 +408,54 @@ select {
   margin: 0;
 }
 
+.category-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.category-page-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 36px 24px 56px;
+}
+
+.category-back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #16a34a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.category-back-link:hover {
+  color: #15803d;
+}
+
+.category-page-header {
+  margin-bottom: 24px;
+}
+
+.category-page-header .section-tag {
+  margin-bottom: 8px;
+}
+
+.category-page-title {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.category-page-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 /* =========================
    MARKETPLACE
 ========================= */
@@ -562,11 +610,11 @@ select {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #16a34a;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(20px);
 }
 
@@ -738,6 +786,38 @@ input:checked + .slider:before {
 .card-action-btn.accent-book {
   background: #eff6ff;
   color: #2563eb;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 10px;
+  width: 100%;
+}
+
+.load-more-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.load-more-btn:hover {
+  border-color: #16a34a;
+  color: #16a34a;
+  background-color: #f0fdf4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.08);
 }
 
 /* =========================
@@ -1047,6 +1127,14 @@ input:checked + .slider:before {
   .marketplace-layout {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .category-page-container {
+    padding: 28px 16px 40px;
+  }
+
+  .category-page-title {
+    font-size: 1.65rem;
   }
 
   .categories-header {

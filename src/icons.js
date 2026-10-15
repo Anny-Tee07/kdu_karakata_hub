@@ -25,7 +25,9 @@ import {
   faCheck,
   faHeart,
   faStar,
-  faSpa
+  faSpa,
+  faArrowLeft,
+  faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 
 export {
@@ -55,5 +57,7 @@ export {
   faCheck,
   faHeart,
   faStar,
-  faSpa
+  faSpa,
+  faArrowLeft,
+  faChevronDown
 };

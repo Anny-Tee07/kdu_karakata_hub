@@ -8,6 +8,10 @@ import Footer from "./components/Footer"
 import { Routes, Route } from "react-router-dom";
 import SafetyRules from "./pages/SafetyRules";
 import VendorsHub from "./pages/VendorsHub";
+import CategoriesPage from "./pages/CategoriesPage";
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+
 
 function App() {
   return (
@@ -20,6 +24,20 @@ function App() {
       <Route
         path="/vendor-hub"
         element={<VendorsHub />}
+      />
+
+      <Route path="/signin" element={<SignIn />} />
+
+      <Route path="/signup" element={<SignUp />} />
+
+      <Route
+        path="/category/:categorySlug"
+        element={<CategoriesPage />}
+      />
+
+      <Route
+        path="/categories"
+        element={<CategoriesPage />}
       />
 
       <Route

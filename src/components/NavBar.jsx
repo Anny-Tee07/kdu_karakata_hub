@@ -1,41 +1,50 @@
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBell, faPlus, faShieldHalved } from "../icons";
-
 import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <header class="navbar-header">
-      <div class="navbar-container">
+    <header className="navbar-header">
+      <div className="navbar-container">
 
-        <div class="nav-brand">
-          <span class="brand-icon"> <FontAwesomeIcon icon={faShieldHalved} /></span>
+        <div className="nav-brand">
+          <span className="brand-icon">
+            <FontAwesomeIcon icon={faShieldHalved} />
+          </span>
           <h2>KDU Karakatá</h2>
         </div>
 
-
-        <div class="nav-search">
+        <div className="nav-search">
           <FontAwesomeIcon icon={faSearch} />
           <input type="text" placeholder="Search product" />
         </div>
 
-        <ul class="nav-links">
-          <li><a href="#marketplace" class="active">Marketplace</a></li>
-          <li><a href="#categories">Categories</a></li>
-          <Link to="/safety">Safety & Rules</Link>
-          <Link to="/vendor-hub">Vendor Hub</Link>
+        <ul className="nav-links">
+          <li><a href="/" className="active">Marketplace</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><Link to="/safety">Safety & Rules</Link></li>
+          <li><Link to="/vendor-hub">Vendor Hub</Link></li>
         </ul>
 
+        <div className="nav-actions">
+          {/* <button className="icon-btn">
+            <FontAwesomeIcon icon={faBell} />
+            <span className="badge">0</span>
+          </button> */}
 
-        <div class="nav-actions">
-          <button class="icon-btn"> <FontAwesomeIcon icon={faBell} /><span class="badge">0</span></button>
-          <button class="btn-post">  <FontAwesomeIcon icon={faPlus} />Sign Up</button>
-          <button class="btn-post">  <FontAwesomeIcon icon={faPlus} />Sign In</button>
+          <Link to="/signup" className="btn-post" style={{ textDecoration: 'none' }}>
+            <FontAwesomeIcon icon={faPlus} /> Sign Up
+          </Link>
 
+          <Link to="/signin" className="btn-post" style={{ textDecoration: 'none' }}>
+            <FontAwesomeIcon icon={faPlus} /> Sign In
+          </Link>
         </div>
+
       </div>
     </header>
-  )
+  );
 }
 
-export default NavBar 
+export default NavBar;

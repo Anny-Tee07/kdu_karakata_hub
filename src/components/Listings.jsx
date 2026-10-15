@@ -1,71 +1,73 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 function Listings() {
     return (
         <div>
-            <div class="marketplace-layout">
+            <div className="marketplace-layout">
 
-                <aside class="filters-sidebar">
-                    <div class="filters-header">
+                <aside className="filters-sidebar">
+                    <div className="filters-header">
                         <h3>Filters</h3>
-                        <button class="reset-btn">Reset</button>
+                        <button className="reset-btn">Reset</button>
                     </div>
 
 
-                    <div class="filter-group">
+                    <div className="filter-group">
                         <label>Max Price: ₦25,000</label>
-                        <input type="range" min="500" max="50000" value="25000" class="price-slider" />
-                        <div class="price-range-labels">
+                        <input type="range" min="500" max="50000" defaultValue="25000" className="price-slider" />
+                        <div className="price-range-labels">
                             <span>₦500</span>
                             <span>₦50,000+</span>
                         </div>
                     </div>
 
 
-                    <div class="filter-group">
-                        <label class="filter-group-title">Availability</label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" checked /> In Stock / Immediate Handover
+                    <div className="filter-group">
+                        <label className="filter-group-title">Availability</label>
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> In Stock / Immediate Handover
                         </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" /> Pre-order & Cooked on Demand
-                        </label>
-                    </div>
-
-
-                    <div class="filter-group">
-                        <label class="filter-group-title">Hostel / Campus Zone</label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" checked /> Male Hostels (Hall 1 & 2)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" checked /> Female Hostels (Queen Amina)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" checked /> Cafeteria & Student Center
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" /> Faculty Blocks & Labs
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> Pre-order & Cooked on Demand
                         </label>
                     </div>
 
-                    <div class="filter-group toggle-group">
-                        <span class="toggle-label">Verified Vendors Only</span>
-                        <label class="switch">
-                            <input type="checkbox" checked />
-                            <span class="slider round"></span>
+
+                    <div className="filter-group">
+                        <label className ="filter-group-title">Hostel / Campus Zone</label>
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> Male Hostels (Hall 1 & 2)
+                        </label>
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> Female Hostels (Queen Amina)
+                        </label>
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> Cafeteria & Student Center
+                        </label>
+                        <label className="checkbox-label">
+                            <input type="checkbox" defaultChecked={true} /> Faculty Blocks & Labs
+                        </label>
+                    </div>
+
+                    <div className="filter-group toggle-group">
+                        <span className="toggle-label">Verified Vendors Only</span>
+                        <label className="switch">
+                            <input type="checkbox" defaultChecked={true} />
+                            <span className="slider round"></span>
                         </label>
                     </div>
                 </aside>
 
 
-                <main class="marketplace-main">
-                    <div class="listings-header-bar">
-                        <span class="listings-count">Showing 8 of 480+ campus listings</span>
-                        <div class="sort-container">
+                <main className="marketplace-main">
+                    <div className="listings-header-bar">
+                        <span className="listings-count">Showing 8 of 480+ campus listings</span>
+                        <div className="sort-container">
                             <span>Sort by:</span>
-                            <div class="custom-select-wrapper">
-                                <select class="sort-select">
+                            <div className="custom-select-wrapper">
+                                <select className="sort-select">
                                     <option>Most Recent First</option>
                                     <option>Price: Low to High</option>
                                     <option>Price: High to Low</option>
@@ -75,12 +77,12 @@ function Listings() {
                         </div>
                     </div>
 
-                    <div class="products-grid">
+                    <div className="products-grid">
 
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <span class="product-location-badge">Male Hostel B</span>
-                                <button class="favorite-btn">🤍</button>
+                        <div className="product-card">
+                            <div className="product-image-container">
+                                <span className="product-location-badge">Male Hostel B</span>
+                                <button className="favorite-btn">🤍</button>
                                 <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400" alt="Charger" />
                             </div>
                             <div class="product-info">
@@ -287,6 +289,20 @@ function Listings() {
                                 </div>
                             </div>
                         </div>
+
+                         
+
+                    </div>
+           
+
+                    <div className="load-more-container">
+                        <button
+                            className="load-more-btn"
+                            onClick={() => window.location.href = '#categories'}
+                        >
+                            <span>Load More Categories</span>
+                            <FontAwesomeIcon icon={faChevronDown} />
+                        </button>
                     </div>
 
                 </main>
