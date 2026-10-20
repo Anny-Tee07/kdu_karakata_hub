@@ -3,34 +3,34 @@ import React from 'react'
 function HowItWorks() {
   return (
     <div>
-        <section class="how-it-works-section">
-  <div class="container">
-    <div class="section-title-wrapper">
-      <span class="section-tag">HOW KARAKATA WORKS</span>
+        <section className="how-it-works-section">
+  <div className="container">
+    <div className="section-title-wrapper">
+      <span className="section-tag">HOW KARAKATA WORKS</span>
       <h2>Simple, Safe Campus Handover</h2>
-      <p>Designed exclusively for KolaDaisi University students, staff and registered campus vendors.</p>
+      <p>For KolaDaisi University students, staff, and campus vendors.</p>
     </div>
 
-    <div class="steps-grid">
+    <div className="steps-grid">
 
-      <div class="step-card">
-        <div class="step-number">01</div>
+      <div className="step-card">
+        <div className="step-number">01</div>
         <h3>Search & Filter</h3>
         <p>Locate dorm essentials, hot food, chargers, textbooks, or styling services filtered by your hostel block.</p>
       </div>
 
    
-      <div class="step-card">
-        <div class="step-number">02</div>
-        <h3>Direct Student Chat</h3>
-        <p>Tap once to chat with the student vendor on WhatsApp or phone call to confirm color, condition, and availability.</p>
+      <div className="step-card">
+        <div className="step-number">02</div>
+        <h3>Review Listing Details</h3>
+        <p>Check the listed price, description, vendor name, and campus pickup location before making arrangements.</p>
       </div>
 
  
-      <div class="step-card">
-        <div class="step-number">03</div>
+      <div className="step-card">
+        <div className="step-number">03</div>
         <h3>Campus Meet & Inspect</h3>
-        <p>Handover at the Hostel Porter Desk or Cafeteria. Always physically test or inspect items before sending funds.</p>
+        <p>Use a safe campus location and inspect items before paying. Orders and vendor contact are not yet connected in this version.</p>
       </div>
     </div>
   </div>

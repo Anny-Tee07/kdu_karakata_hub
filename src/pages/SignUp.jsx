@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
 function SignUp() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         fullName: '',
+        username: '',
         email: '',
-        accountType: 'Buyer',
         password: '',
         confirmPassword: '',
         agreeTerms: false
     });
     const [errorMessage, setErrorMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -22,9 +26,10 @@ function SignUp() {
         });
     };
 
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         setErrorMessage('');
+        setStatusMessage('');
 
         if (formData.password !== formData.confirmPassword) {
             setErrorMessage('Passwords do not match!');
@@ -36,8 +41,40 @@ function SignUp() {
             return;
         }
 
-        sessionStorage.setItem('isLoggedIn', 'true');
-        window.location.href = '/';
+        if (!/^[a-zA-Z0-9_]{3,32}$/.test(formData.username)) {
+            setErrorMessage('Username must be 3–32 characters using letters, numbers, or underscores.');
+            return;
+        }
+
+        setSubmitting(true);
+        try {
+            const { data, error } = await supabase.auth.signUp({
+                email: formData.email.trim(),
+                password: formData.password,
+                options: {
+                    data: {
+                        username: formData.username.trim(),
+                        display_name: formData.fullName.trim(),
+                    },
+                },
+            });
+            if (error) {
+                setErrorMessage(error.message);
+                return;
+            }
+
+            setFormData((current) => ({ ...current, password: '', confirmPassword: '' }));
+            setStatusMessage(data.session
+                ? 'Your account was created and you are signed in.'
+                : 'Account created. Check your email for the confirmation link before signing in.');
+            if (data.session) {
+                navigate('/');
+            }
+        } catch (error) {
+            setErrorMessage(`Could not contact the authentication service: ${error.message}`);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -51,30 +88,59 @@ function SignUp() {
                     <p>Join the KDU Karakatá campus marketplace community.</p>
                 </header>
 
+                {!isSupabaseConfigured && (
+                    <p className="account-status-message" role="status">
+                        Authentication is not configured. Add the Supabase project URL and public
+                        anon/publishable key to your ignored local <code>.env.local</code> file before registering.
+                    </p>
+                )}
+                {statusMessage && <p className="account-status-message" role="status">{statusMessage}</p>}
+
                 {errorMessage && (
-                    <div style={{ backgroundColor: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: '6px', fontSize: '0.875rem', marginBottom: '16px', border: '1px solid #fca5a5' }}>
+                    <div role="alert" style={{ backgroundColor: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: '6px', fontSize: '0.875rem', marginBottom: '16px', border: '1px solid #fca5a5' }}>
                         {errorMessage}
                     </div>
                 )}
 
-                <form onSubmit={handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {isSupabaseConfigured && <form onSubmit={handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Full Name</label>
+                        <label htmlFor="fullName" style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Full Name</label>
                         <input
                             type="text"
+                            id="fullName"
                             name="fullName"
                             value={formData.fullName}
                             onChange={handleChange}
                             placeholder="e.g. Tinuayo Ososanwo"
+                            minLength="2"
+                            maxLength="80"
                             required
                             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
                         />
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Campus Email / ID</label>
+                        <label htmlFor="signupUsername" style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Username</label>
+                        <input
+                            type="text"
+                            id="signupUsername"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            autoComplete="username"
+                            minLength="3"
+                            maxLength="32"
+                            pattern="[A-Za-z0-9_]{3,32}"
+                            required
+                            style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="signupEmail" style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Campus Email / ID</label>
                         <input
                             type="email"
+                            id="signupEmail"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -85,40 +151,32 @@ function SignUp() {
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>I want to join as a:</label>
-                        <select
-                            name="accountType"
-                            value={formData.accountType}
-                            onChange={handleChange}
-                            style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#fff' }}
-                        >
-                            <option value="Buyer">Buyer</option>
-                            <option value="Vendor">Vendor</option>
-                            <option value="Both">Both (Buyer & Vendor)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Password</label>
+                        <label htmlFor="signupPassword" style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Password</label>
                         <input
                             type="password"
+                            id="signupPassword"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                             placeholder="••••••••"
+                            minLength="12"
+                            maxLength="72"
                             required
                             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
                         />
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Confirm Password</label>
+                        <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '6px', fontWeight: '500' }}>Confirm Password</label>
                         <input
                             type="password"
+                            id="confirmPassword"
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="••••••••"
+                            minLength="12"
+                            maxLength="72"
                             required
                             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
                         />
@@ -135,10 +193,10 @@ function SignUp() {
                         <label htmlFor="agreeTerms">I agree to the <Link to="/safety" style={{ color: '#16a34a' }}>Safety Rules & Terms</Link></label>
                     </div>
 
-                    <button type="submit" className="card-action-btn accent" style={{ padding: '12px', marginTop: '10px', cursor: 'pointer', fontWeight: '600' }}>
-                        Register & Continue
+                    <button disabled={submitting} type="submit" className="card-action-btn accent" style={{ padding: '12px', marginTop: '10px', cursor: 'pointer', fontWeight: '600' }}>
+                    {submitting ? 'Creating account…' : 'Create account'}
                     </button>
-                </form>
+                </form>}
 
                 <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.875rem', color: '#64748b' }}>
                     Already have an account? <Link to="/signin" style={{ color: '#16a34a', fontWeight: '600' }}>Sign In</Link>

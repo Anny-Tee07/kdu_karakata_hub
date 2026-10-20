@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 function SafetyRules() {
-  const navigate = useNavigate();
-
   return (
     <div>
       <Navbar />
@@ -22,7 +21,7 @@ function SafetyRules() {
         <div className="safety-content-wrapper">
           <div className="safety-card">
             <h3>1. Designated Handover Zones</h3>
-            <p>Meet only in safe campus areas like the Main Cafeteria, Student Center, or Hall Entrances.</p>
+            <p>Agree on a busy public meeting place directly with the other person. Demo listing locations do not confirm a seller's address or presence.</p>
           </div>
 
           <div className="safety-card">
@@ -31,6 +30,7 @@ function SafetyRules() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
